@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>👑 Louis XIV - Le Roi Soleil</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+  :root {
+    --gold: #f0c040; --dark-gold: #b8860b; --red: #8b0000; --dark-red: #5a0000;
+    --blue: #1a3a6b; --light-blue: #d0e4f7; --green: #1e6b3a; --light-green: #d0f0e0;
+    --purple: #5a1a7a; --bg: #fdf8ee; --text: #1a1005; --card-bg: #fffdf0; --border: #c8a020;
+    --sun: #f5a623; --navy: #0d2240;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+  header {
+    background: linear-gradient(135deg, #0d1a2e 0%, #1a2d4a 40%, #2a4060 100%);
+    padding: 22px 20px; text-align: center; border-bottom: 6px solid var(--gold);
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content: '☀️'; font-size: 8em; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%,-50%); opacity: 0.06; pointer-events: none;
+  }
+  .banner { font-size: 2.6em; font-weight: 900; color: var(--gold); text-shadow: 2px 2px 10px rgba(0,0,0,0.6); letter-spacing: 3px; position: relative; }
+  .subtitle { color: #e8d080; font-size: 1em; margin-top: 7px; font-weight: 700; position: relative; }
+  .deco-row { font-size: 1.4em; margin-top: 8px; position: relative; }
+
+  nav { display: flex; justify-content: center; gap: 10px; padding: 14px; background: linear-gradient(180deg, #0d1a2e, #060e1a); flex-wrap: wrap; }
+  .nav-btn { padding: 10px 22px; border: 3px solid var(--gold); border-radius: 50px; font-size: 0.95em; font-weight: 800; cursor: pointer; transition: all 0.25s; font-family: 'Nunito', sans-serif; background: transparent; color: var(--gold); }
+  .nav-btn:hover, .nav-btn.active { background: var(--gold); color: #0d1a2e; transform: scale(1.07); box-shadow: 0 4px 20px rgba(240,192,64,0.5); }
+
+  .page { display: none; } .page.active { display: block; }
+
+  /* HOME */
+  .home-container { max-width: 920px; margin: 36px auto; padding: 20px; text-align: center; }
+  .hero-emoji { font-size: 5em; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-15px)} }
+  .hero-title { font-size: 2em; font-weight: 900; color: var(--red); margin: 12px 0; }
+  .hero-desc { font-size: 1.08em; color: #4a2a00; max-width: 620px; margin: 0 auto 28px; line-height: 1.65; }
+  .home-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; margin-top: 18px; }
+  .home-card { background: var(--card-bg); border: 3px solid var(--border); border-radius: 20px; padding: 26px 18px; cursor: pointer; transition: all 0.3s; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .home-card:hover { transform: translateY(-8px); box-shadow: 0 10px 30px rgba(0,0,0,0.2); border-color: var(--dark-gold); }
+  .home-card .icon { font-size: 3.2em; margin-bottom: 10px; }
+  .home-card h3 { font-size: 1.3em; font-weight: 900; color: var(--red); margin-bottom: 7px; }
+  .home-card p { color: #6b4020; font-size: 0.93em; line-height: 1.5; }
+
+  .frise { margin-top: 32px; background: linear-gradient(135deg,#0d1a2e,#1a2d4a); border-radius: 20px; padding: 22px; color: var(--gold); border: 2px solid var(--dark-gold); }
+  .frise h3 { font-size: 1.3em; font-weight: 900; margin-bottom: 14px; }
+  .frise-items { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 12px; }
+  .frise-item { text-align: center; }
+  .fi-emoji { font-size: 1.7em; }
+  .fi-date { font-weight: 900; font-size: 1em; }
+  .fi-label { color: #e8d080; font-size: 0.82em; max-width: 80px; }
+
+  /* COURS */
+  .cours-container { max-width: 960px; margin: 28px auto; padding: 0 20px 40px; }
+  .section-title { text-align: center; font-size: 1.75em; font-weight: 900; color: var(--red); margin-bottom: 26px; padding: 14px; background: linear-gradient(135deg,#fdf5e0,#f8e8c0); border-radius: 15px; border: 3px solid var(--gold); }
+
+  .chapter { background: var(--card-bg); border: 3px solid var(--border); border-radius: 20px; margin-bottom: 22px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+  .chapter-header { padding: 16px 22px; cursor: pointer; display: flex; align-items: center; gap: 14px; transition: background 0.2s; user-select: none; }
+  .chapter-header:hover { background: #f5ead0; }
+  .ch-icon { font-size: 2em; flex-shrink: 0; }
+  .ch-text h2 { font-size: 1.12em; font-weight: 900; color: var(--red); }
+  .ch-text p { font-size: 0.83em; color: #7a5020; margin-top: 2px; }
+  .ch-arrow { margin-left: auto; font-size: 1.2em; color: var(--dark-gold); transition: transform 0.3s; flex-shrink: 0; }
+  .chapter.open .ch-arrow { transform: rotate(180deg); }
+  .ch-body { display: none; padding: 0 22px 22px; border-top: 2px solid var(--border); animation: slideDown 0.3s ease; }
+  @keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+  .chapter.open .ch-body { display: block; }
+  .ch-body p { line-height: 1.7; color: #2a1a08; margin: 12px 0; font-size: 0.97em; }
+
+  .fact-box { background: linear-gradient(135deg,#fff8e0,#ffedb0); border-left: 6px solid var(--gold); border-radius: 12px; padding: 13px 17px; margin: 13px 0; }
+  .fact-title { font-weight: 900; color: #7a5000; font-size: 0.96em; margin-bottom: 5px; }
+  .fact-box p { color: #5a3800; margin: 0; font-size: 0.88em; }
+  .kw { background: var(--gold); color: #1a0a00; font-weight: 800; padding: 1px 8px; border-radius: 6px; font-size: 0.92em; }
+
+  .info-box { background: linear-gradient(135deg,#e8f0ff,#d0e4ff); border-left: 6px solid var(--blue); border-radius: 12px; padding: 13px 17px; margin: 13px 0; }
+  .info-box p { color: #0a1a4a; margin: 0; font-size: 0.88em; }
+  .info-title { font-weight: 900; color: #0a1a4a; font-size: 0.96em; margin-bottom: 5px; }
+
+  .memo-banner { background: linear-gradient(135deg,#0d1a2e,#1a2d4a); color: var(--gold); border-radius: 14px; padding: 16px 20px; margin: 20px 0 0; text-align: center; }
+  .memo-banner h3 { font-size: 1.1em; font-weight: 900; margin-bottom: 10px; }
+  .memo-items { display: flex; flex-wrap: wrap; gap: 9px; justify-content: center; }
+  .memo-item { background: rgba(240,192,64,0.15); border: 2px solid var(--gold); border-radius: 10px; padding: 6px 13px; font-size: 0.85em; font-weight: 700; color: #f8e090; }
+
+  .vocab-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(185px,1fr)); gap: 11px; margin: 13px 0; }
+  .vocab-item { background: var(--light-blue); border: 2px solid var(--blue); border-radius: 11px; padding: 11px; }
+  .v-word { font-weight: 900; color: var(--blue); font-size: 0.9em; }
+  .v-def { font-size: 0.82em; color: #0a2050; margin-top: 4px; line-height: 1.4; }
+
+  /* PERSONNAGES */
+  .perso-container { max-width: 960px; margin: 28px auto; padding: 0 20px 40px; }
+  .perso-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+  .perso-card { background: var(--card-bg); border: 3px solid var(--border); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transition: transform 0.25s; }
+  .perso-card:hover { transform: translateY(-6px); box-shadow: 0 10px 28px rgba(0,0,0,0.18); }
+  .perso-header { padding: 20px; background: linear-gradient(135deg,#0d1a2e,#1a3050); text-align: center; }
+  .perso-emoji { font-size: 3.5em; }
+  .perso-name { color: var(--gold); font-size: 1.15em; font-weight: 900; margin-top: 8px; }
+  .perso-role { color: #a0b8d8; font-size: 0.82em; font-weight: 700; margin-top: 3px; }
+  .perso-body { padding: 16px 18px; }
+  .perso-dates { display: inline-block; background: var(--red); color: white; font-size: 0.75em; font-weight: 800; padding: 2px 11px; border-radius: 20px; margin-bottom: 9px; }
+  .perso-body p { font-size: 0.88em; color: #2a1a08; line-height: 1.55; }
+  .perso-tag { display: inline-block; background: linear-gradient(135deg,var(--gold),var(--dark-gold)); color: #1a0a00; font-size: 0.75em; font-weight: 800; padding: 3px 10px; border-radius: 20px; margin: 8px 3px 0 0; }
+
+  /* QUIZ */
+  .quiz-container { max-width: 760px; margin: 28px auto; padding: 0 20px 40px; }
+  .quiz-intro { text-align: center; background: var(--card-bg); border: 3px solid var(--border); border-radius: 20px; padding: 26px; margin-bottom: 26px; }
+  .quiz-intro h2 { font-size: 1.65em; font-weight: 900; color: var(--red); margin-bottom: 9px; }
+  .quiz-intro p { color: #5a3010; font-size: 0.98em; margin-bottom: 18px; }
+  .diff-btns { display: flex; gap: 11px; justify-content: center; flex-wrap: wrap; }
+  .diff-btn { padding: 9px 20px; border: 3px solid; border-radius: 50px; font-size: 0.96em; font-weight: 800; cursor: pointer; transition: all 0.25s; font-family: 'Nunito',sans-serif; background: transparent; }
+  .diff-btn.easy { border-color: var(--green); color: var(--green); }
+  .diff-btn.medium { border-color: var(--blue); color: var(--blue); }
+  .diff-btn.hard { border-color: var(--red); color: var(--red); }
+  .diff-btn.easy.sel,.diff-btn.easy:hover { background: var(--green); color: white; }
+  .diff-btn.medium.sel,.diff-btn.medium:hover { background: var(--blue); color: white; }
+  .diff-btn.hard.sel,.diff-btn.hard:hover { background: var(--red); color: white; }
+  .start-btn { display: block; margin: 18px auto 0; padding: 13px 36px; background: linear-gradient(135deg,var(--gold),var(--dark-gold)); color: #0d1a2e; border: none; border-radius: 50px; font-size: 1.12em; font-weight: 900; cursor: pointer; transition: all 0.25s; font-family: 'Nunito',sans-serif; box-shadow: 0 4px 15px rgba(184,134,11,0.4); }
+  .start-btn:hover { transform: scale(1.07); }
+
+  #quiz-game { display: none; }
+  .quiz-progress { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
+  .prog-bg { flex: 1; height: 13px; background: #e8d8a0; border-radius: 10px; overflow: hidden; border: 2px solid var(--border); }
+  .prog-fill { height: 100%; background: linear-gradient(90deg,var(--gold),var(--dark-gold)); border-radius: 10px; transition: width 0.5s ease; }
+  .prog-text { font-weight: 800; color: #5a3010; font-size: 0.9em; white-space: nowrap; }
+  .score-badge { background: linear-gradient(135deg,var(--gold),var(--dark-gold)); color: #0d1a2e; font-weight: 900; padding: 5px 13px; border-radius: 20px; font-size: 0.93em; white-space: nowrap; }
+
+  .q-card { background: var(--card-bg); border: 3px solid var(--border); border-radius: 20px; padding: 26px; margin-bottom: 20px; box-shadow: 0 5px 18px rgba(0,0,0,0.1); }
+  .q-num { font-size: 0.82em; font-weight: 800; color: white; background: var(--red); display: inline-block; padding: 3px 12px; border-radius: 20px; margin-bottom: 9px; }
+  .q-emoji { font-size: 2.2em; display: block; margin-bottom: 7px; }
+  .q-text { font-size: 1.15em; font-weight: 800; color: #1a0a00; line-height: 1.5; margin-bottom: 18px; }
+  .opts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media(max-width:500px){.opts-grid{grid-template-columns:1fr}}
+  .opt-btn { padding: 12px 14px; border: 3px solid var(--border); border-radius: 13px; font-size: 0.93em; font-weight: 700; cursor: pointer; transition: all 0.2s; font-family: 'Nunito',sans-serif; background: white; color: var(--text); text-align: left; display: flex; align-items: center; gap: 9px; }
+  .opt-btn:hover:not(:disabled) { border-color: var(--blue); background: var(--light-blue); transform: translateX(4px); }
+  .opt-btn.correct { background: var(--light-green)!important; border-color: var(--green)!important; color: #0a3a1a!important; }
+  .opt-btn.wrong { background: #ffe8e8!important; border-color: var(--red)!important; color: var(--dark-red)!important; }
+  .opt-btn:disabled { cursor: default; }
+  .opt-letter { width: 25px; height: 25px; border-radius: 50%; background: var(--border); color: #1a0a00; font-weight: 900; font-size: 0.82em; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .fb-box { display: none; margin-top: 14px; padding: 13px 17px; border-radius: 13px; font-size: 0.94em; font-weight: 700; line-height: 1.5; animation: popIn 0.3s ease; }
+  @keyframes popIn{0%{transform:scale(0.85);opacity:0}100%{transform:scale(1);opacity:1}}
+  .fb-ok { background: var(--light-green); border: 3px solid var(--green); color: #0a3a1a; }
+  .fb-ko { background: #ffe8e8; border: 3px solid var(--red); color: var(--dark-red); }
+  .next-btn { display: none; margin: 14px auto 0; padding: 11px 32px; background: linear-gradient(135deg,#1a3a6b,#0d2240); color: white; border: none; border-radius: 50px; font-size: 1.02em; font-weight: 900; cursor: pointer; font-family: 'Nunito',sans-serif; transition: all 0.25s; }
+  .next-btn:hover { transform: scale(1.05); }
+
+  #quiz-results { display: none; }
+  .results-card { background: var(--card-bg); border: 3px solid var(--border); border-radius: 22px; padding: 36px 26px; text-align: center; box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
+  .res-emoji { font-size: 4em; animation: bounce 0.8s ease infinite alternate; }
+  @keyframes bounce{from{transform:translateY(0)}to{transform:translateY(-12px)}}
+  .res-title { font-size: 1.85em; font-weight: 900; color: var(--red); margin: 13px 0 7px; }
+  .res-score { font-size: 3em; font-weight: 900; color: var(--dark-gold); margin: 7px 0; }
+  .res-stars { font-size: 2.4em; margin: 7px 0 16px; }
+  .res-msg { font-size: 1.03em; color: #4a2a00; margin-bottom: 20px; line-height: 1.6; }
+  .retry-btn,.home2-btn { padding: 11px 26px; border-radius: 50px; font-size: 1.02em; font-weight: 900; cursor: pointer; font-family: 'Nunito',sans-serif; transition: all 0.25s; margin: 6px; border: none; }
+  .retry-btn { background: linear-gradient(135deg,var(--gold),var(--dark-gold)); color: #0d1a2e; }
+  .home2-btn { background: linear-gradient(135deg,#0d1a2e,#1a3050); color: var(--gold); }
+  .retry-btn:hover,.home2-btn:hover { transform: scale(1.07); }
+
+  .confetti-c { position: fixed; top:0;left:0;right:0;bottom:0; pointer-events:none; z-index:999; overflow:hidden; }
+  .conf { position: absolute; width:12px; height:12px; top:-20px; animation: cfall linear forwards; border-radius:3px; }
+  @keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+  footer { text-align:center; padding:16px; background:#0d1a2e; color:#a0b060; font-size:0.87em; font-weight:600; border-top:3px solid var(--gold); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="banner">☀️ Louis XIV ☀️</div>
+  <div class="subtitle">Le Roi Soleil — CM1 / CM2</div>
+  <div class="deco-row">⚜️ 🏰 👑 🗡️ ⚜️</div>
+</header>
+
+<nav>
+  <button class="nav-btn active" onclick="showPage('home')">🏠 Accueil</button>
+  <button class="nav-btn" onclick="showPage('cours')">📖 Le Cours</button>
+  <button class="nav-btn" onclick="showPage('perso')">🎭 Personnages</button>
+  <button class="nav-btn" onclick="showPage('quiz')">🎯 Le Quiz</button>
+</nav>
+
+<!-- ACCUEIL -->
+<div id="page-home" class="page active">
+  <div class="home-container">
+    <div class="hero-emoji">☀️</div>
+    <div class="hero-title">Bienvenue, sujet du Roi Soleil ! 👋</div>
+    <p class="hero-desc">Louis XIV a régné pendant <strong>72 ans</strong> — c'est le plus long règne de l'histoire de France ! Explore son époque, ses grands personnages, et prouve que tu es digne de Versailles ! 🏰</p>
+    <div class="home-cards">
+      <div class="home-card" onclick="showPage('cours')">
+        <div class="icon">📖</div>
+        <h3>Le Cours</h3>
+        <p>Versailles, les guerres, le pouvoir absolu... tout ce qu'il faut savoir sur le Roi Soleil !</p>
+      </div>
+      <div class="home-card" onclick="showPage('perso')">
+        <div class="icon">🎭</div>
+        <h3>Personnages</h3>
+        <p>Colbert, Vauban, Molière, Racine... découvre les grandes figures du règne de Louis XIV !</p>
+      </div>
+      <div class="home-card" onclick="showPage('quiz')">
+        <div class="icon">🎯</div>
+        <h3>Le Quiz</h3>
+        <p>3 niveaux de difficulté ! Gagne des étoiles et deviens champion(ne) du Roi Soleil !</p>
+      </div>
+    </div>
+    <div class="frise">
+      <h3>⏳ La Grande Frise du Règne</h3>
+      <div class="frise-items">
+        <div class="frise-item"><div class="fi-emoji">👶</div><div class="fi-date">1638</div><div class="fi-label">Naissance de Louis XIV</div></div>
+        <div style="align-self:center;color:var(--gold)">→</div>
+        <div class="frise-item"><div class="fi-emoji">👑</div><div class="fi-date">1643</div><div class="fi-label">Devient roi à 5 ans</div></div>
+        <div style="align-self:center;color:var(--gold)">→</div>
+        <div class="frise-item"><div class="fi-emoji">✊</div><div class="fi-date">1661</div><div class="fi-label">Gouverne seul</div></div>
+        <div style="align-self:center;color:var(--gold)">→</div>
+        <div class="frise-item"><div class="fi-emoji">🏰</div><div class="fi-date">1682</div><div class="fi-label">Installation à Versailles</div></div>
+        <div style="align-self:center;color:var(--gold)">→</div>
+        <div class="frise-item"><div class="fi-emoji">📜</div><div class="fi-date">1685</div><div class="fi-label">Édit de Fontainebleau</div></div>
+        <div style="align-self:center;color:var(--gold)">→</div>
+        <div class="frise-item"><div class="fi-emoji">⚔️</div><div class="fi-date">1701</div><div class="fi-label">Guerre de Succession</div></div>
+        <div style="align-self:center;color:var(--gold)">→</div>
+        <div class="frise-item"><div class="fi-emoji">✝️</div><div class="fi-date">1715</div><div class="fi-label">Mort de Louis XIV</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- COURS -->
+<div id="page-cours" class="page">
+  <div class="cours-container">
+    <div class="section-title">📖 Le Cours — Louis XIV, le Roi Soleil</div>
+
+    <div class="chapter" id="ch1">
+      <div class="chapter-header" onclick="toggleCh('ch1')">
+        <div class="ch-icon">👶</div>
+        <div class="ch-text"><h2>Chapitre 1 — Qui est Louis XIV ?</h2><p>Son enfance et ses débuts (1638–1661)</p></div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="ch-body">
+        <p>Louis XIV naît le <span class="kw">5 septembre 1638</span> au château de Saint-Germain-en-Laye. Son père s'appelle Louis XIII. Quand son père meurt en <strong>1643</strong>, Louis n'a que <span class="kw">5 ans</span> ! Il devient roi de France, mais c'est sa mère <strong>Anne d'Autriche</strong> et le ministre <strong>Mazarin</strong> qui gouvernent à sa place.</p>
+        <div class="fact-box">
+          <div class="fact-title">😱 La Fronde (1648–1653)</div>
+          <p>Quand Louis est petit, de grands seigneurs se révoltent contre le pouvoir royal : c'est la <strong>Fronde</strong>. Louis doit même fuir Paris ! Cette expérience le marque à vie : il décidera que plus jamais les nobles ne lui feront peur.</p>
+        </div>
+        <p>En <span class="kw">1661</span>, le cardinal Mazarin meurt. Louis a 22 ans. Quand on lui demande qui sera le nouveau premier ministre, il répond : <em>"Moi !"</em>. À partir de ce jour, il gouverne <span class="kw">seul et tout-puissant</span>.</p>
+        <div class="memo-banner">
+          <h3>✅ À retenir</h3>
+          <div class="memo-items">
+            <div class="memo-item">👶 Né en 1638</div>
+            <div class="memo-item">👑 Roi à 5 ans en 1643</div>
+            <div class="memo-item">😱 La Fronde l'a marqué</div>
+            <div class="memo-item">✊ Gouverne seul dès 1661</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch2">
+      <div class="chapter-header" onclick="toggleCh('ch2')">
+        <div class="ch-icon">☀️</div>
+        <div class="ch-text"><h2>Chapitre 2 — Le Roi Absolu</h2><p>Son pouvoir et sa devise (1661–1715)</p></div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="ch-body">
+        <p>Louis XIV choisit le <span class="kw">soleil</span> comme symbole. Tout comme le soleil éclaire le monde, le roi pense que c'est lui qui donne vie à tout le royaume. Il se fait appeler le <span class="kw">"Roi Soleil"</span>.</p>
+        <div class="fact-box">
+          <div class="fact-title">👑 La monarchie absolue</div>
+          <p>Louis XIV pense qu'il tient son pouvoir directement de Dieu. Il n'a pas à rendre de comptes à personne. On dit qu'il a déclaré : <em>"L'État, c'est moi !"</em> C'est ce qu'on appelle la <strong>monarchie absolue</strong>.</p>
+        </div>
+        <p>Pour s'assurer que les <span class="kw">nobles</span> ne complotent pas contre lui (comme pendant la Fronde), Louis XIV les invite à vivre avec lui à <strong>Versailles</strong>. Ils sont occupés à suivre les cérémonies du roi et n'ont plus le temps de se révolter !</p>
+        <div class="info-box">
+          <div class="info-title">⚜️ La journée du roi</div>
+          <p>Chaque geste de Louis XIV était une cérémonie : le <strong>lever</strong> (se lever le matin devant les courtisans), le <strong>coucher</strong> (se coucher le soir devant eux), les repas en public... Les nobles se battaient pour avoir l'honneur de lui tenir sa chemise !</p>
+        </div>
+        <div class="memo-banner">
+          <h3>✅ À retenir</h3>
+          <div class="memo-items">
+            <div class="memo-item">☀️ Symbole = le Soleil</div>
+            <div class="memo-item">👑 Pouvoir absolu</div>
+            <div class="memo-item">🏰 Nobles à Versailles</div>
+            <div class="memo-item">🙏 Pouvoir vient de Dieu</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch3">
+      <div class="chapter-header" onclick="toggleCh('ch3')">
+        <div class="ch-icon">🏰</div>
+        <div class="ch-text"><h2>Chapitre 3 — Le Château de Versailles</h2><p>Le plus beau palais du monde</p></div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="ch-body">
+        <p>Louis XIV transforme un simple pavillon de chasse en un immense et magnifique palais : le <span class="kw">château de Versailles</span>. La construction dure des dizaines d'années et mobilise des milliers d'ouvriers.</p>
+        <div class="fact-box">
+          <div class="fact-title">✨ La Galerie des Glaces</div>
+          <p>La pièce la plus célèbre de Versailles est la <strong>Galerie des Glaces</strong> : 73 mètres de long, 357 miroirs, et des peintures qui racontent les victoires de Louis XIV. C'est là que l'empire allemand sera proclamé en 1871 et que la paix de 1918 sera signée !</p>
+        </div>
+        <p>En <span class="kw">1682</span>, Louis XIV déplace toute sa cour et son gouvernement à Versailles. Plus de <strong>10 000 personnes</strong> vivent dans et autour du château ! Les jardins, dessinés par <strong>Le Nôtre</strong>, sont parfaitement géométriques — même la nature obéit au roi.</p>
+        <div class="memo-banner">
+          <h3>✅ À retenir</h3>
+          <div class="memo-items">
+            <div class="memo-item">🏰 Versailles = symbole du pouvoir</div>
+            <div class="memo-item">🪞 Galerie des Glaces</div>
+            <div class="memo-item">📅 Installation en 1682</div>
+            <div class="memo-item">🌿 Jardins de Le Nôtre</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch4">
+      <div class="chapter-header" onclick="toggleCh('ch4')">
+        <div class="ch-icon">⚔️</div>
+        <div class="ch-text"><h2>Chapitre 4 — Les Guerres et la Religion</h2><p>Les grandes décisions du règne</p></div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="ch-body">
+        <p>Louis XIV mène de nombreuses guerres pour agrandir le territoire français. Son armée, organisée par le ministre <strong>Louvois</strong> et les fortifications construites par <strong>Vauban</strong>, est la plus puissante d'Europe.</p>
+        <div class="fact-box">
+          <div class="fact-title">📜 L'Édit de Fontainebleau (1685)</div>
+          <p>En 1598, son grand-père Henri IV avait signé l'<strong>Édit de Nantes</strong> pour permettre aux protestants (les Huguenots) de pratiquer leur religion. En <strong>1685</strong>, Louis XIV annule cet édit avec l'<strong>Édit de Fontainebleau</strong>. Des centaines de milliers de protestants quittent alors la France.</p>
+        </div>
+        <div class="info-box">
+          <div class="info-title">⚔️ La Guerre de Succession d'Espagne (1701–1714)</div>
+          <p>La dernière grande guerre de Louis XIV : son petit-fils Philippe d'Anjou hérite du trône d'Espagne. Toute l'Europe s'unit contre la France. La guerre se termine en 1714 par le <strong>traité d'Utrecht</strong> — Philippe garde l'Espagne mais la France est épuisée.</p>
+        </div>
+        <div class="memo-banner">
+          <h3>✅ À retenir</h3>
+          <div class="memo-items">
+            <div class="memo-item">⚔️ Nombreuses guerres</div>
+            <div class="memo-item">🛡️ Vauban fortifie les frontières</div>
+            <div class="memo-item">📜 Édit de Fontainebleau 1685</div>
+            <div class="memo-item">✝️ Louis XIV meurt en 1715</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch5">
+      <div class="chapter-header" onclick="toggleCh('ch5')">
+        <div class="ch-icon">🎭</div>
+        <div class="ch-text"><h2>Chapitre 5 — L'Art et la Culture</h2><p>Le siècle de Louis XIV</p></div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="ch-body">
+        <p>Le règne de Louis XIV est aussi un âge d'or pour les arts et la culture. Le roi aime la musique, le théâtre et la danse. Il finance de nombreux artistes qui glorifient son règne.</p>
+        <div class="info-box">
+          <div class="info-title">🎭 Les grands artistes du règne</div>
+          <p><strong>Molière</strong> écrit des comédies brillantes (Le Bourgeois Gentilhomme, Tartuffe). <strong>Racine</strong> écrit des tragédies puissantes. <strong>La Fontaine</strong> écrit ses célèbres Fables. <strong>Lully</strong> compose des opéras pour le roi. Louis XIV lui-même était danseur !</p>
+        </div>
+        <p>Louis XIV crée aussi de grandes <span class="kw">académies</span> : l'Académie française (pour la langue), l'Académie des sciences, l'Académie de peinture... Il veut que la France soit le pays le plus brillant d'Europe.</p>
+        <div class="memo-banner">
+          <h3>✅ À retenir</h3>
+          <div class="memo-items">
+            <div class="memo-item">🎭 Molière, Racine, La Fontaine</div>
+            <div class="memo-item">🎵 Lully et l'opéra</div>
+            <div class="memo-item">🏛️ Création des Académies</div>
+            <div class="memo-item">💃 Louis XIV était danseur !</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chapter" id="ch6">
+      <div class="chapter-header" onclick="toggleCh('ch6')">
+        <div class="ch-icon">📚</div>
+        <div class="ch-text"><h2>📚 Les Mots Importants</h2><p>Le vocabulaire à bien connaître</p></div>
+        <div class="ch-arrow">▼</div>
+      </div>
+      <div class="ch-body">
+        <div class="vocab-grid">
+          <div class="vocab-item"><div class="v-word">☀️ Monarchie absolue</div><div class="v-def">Régime où le roi a tous les pouvoirs, sans partage.</div></div>
+          <div class="vocab-item"><div class="v-word">🏰 Cour</div><div class="v-def">Ensemble des nobles qui vivent autour du roi.</div></div>
+          <div class="vocab-item"><div class="v-word">👨‍💼 Courtisan</div><div class="v-def">Noble qui vit à la cour et cherche à plaire au roi.</div></div>
+          <div class="vocab-item"><div class="v-word">😱 La Fronde</div><div class="v-def">Révolte des nobles contre le pouvoir royal (1648-1653).</div></div>
+          <div class="vocab-item"><div class="v-word">⚜️ Intendant</div><div class="v-def">Représentant du roi dans chaque région du royaume.</div></div>
+          <div class="vocab-item"><div class="v-word">🏛️ Académie</div><div class="v-def">Institution créée par le roi pour promouvoir les arts et les sciences.</div></div>
+          <div class="vocab-item"><div class="v-word">✝️ Huguenot</div><div class="v-def">Protestant français au temps de Louis XIV.</div></div>
+          <div class="vocab-item"><div class="v-word">🛡️ Fortification</div><div class="v-def">Construction militaire pour défendre une ville ou une frontière.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERSONNAGES -->
+<div id="page-perso" class="page">
+  <div class="perso-container">
+    <div class="section-title">🎭 Les Personnages du Règne de Louis XIV</div>
+    <div class="perso-grid">
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">👑</div>
+          <div class="perso-name">Louis XIV</div>
+          <div class="perso-role">Le Roi Soleil</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1638 – 1715</div>
+          <p>Roi de France pendant 72 ans, le plus long règne de l'histoire ! Il choisit le soleil comme emblème et construit Versailles pour montrer sa puissance à toute l'Europe.</p>
+          <span class="perso-tag">☀️ Roi absolu</span>
+          <span class="perso-tag">🏰 Versailles</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">💰</div>
+          <div class="perso-name">Colbert</div>
+          <div class="perso-role">Ministre des Finances</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1619 – 1683</div>
+          <p>Grand ministre de Louis XIV, il gère les finances du royaume et développe le commerce, l'industrie et la marine. Il crée aussi les grandes manufactures royales. Il enrichit la France... mais le roi dépense tout pour ses guerres et Versailles !</p>
+          <span class="perso-tag">💼 Finances</span>
+          <span class="perso-tag">🚢 Marine</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">🛡️</div>
+          <div class="perso-name">Vauban</div>
+          <div class="perso-role">Ingénieur militaire</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1633 – 1707</div>
+          <p>Le génie militaire de Louis XIV ! Il construit ou améliore plus de 300 forteresses pour protéger les frontières de la France. Ses fortifications sont tellement bien conçues que certaines existent encore aujourd'hui.</p>
+          <span class="perso-tag">🏰 Fortifications</span>
+          <span class="perso-tag">⚔️ Armée</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">🎭</div>
+          <div class="perso-name">Molière</div>
+          <div class="perso-role">Auteur de comédies</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1622 – 1673</div>
+          <p>Le plus grand auteur comique de l'époque ! Louis XIV l'adore et le protège. Il écrit des pièces célèbres comme <em>Le Bourgeois Gentilhomme</em>, <em>Tartuffe</em>, <em>L'Avare</em>. Il meurt sur scène en jouant une de ses propres pièces !</p>
+          <span class="perso-tag">🎭 Théâtre</span>
+          <span class="perso-tag">😂 Comédie</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">📝</div>
+          <div class="perso-name">Racine</div>
+          <div class="perso-role">Auteur de tragédies</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1639 – 1699</div>
+          <p>Le grand rival de Molière mais dans un genre différent : la tragédie. Ses pièces (<em>Andromaque</em>, <em>Phèdre</em>) racontent des histoires de passion et de mort inspirées de l'Antiquité. Louis XIV lui commande l'histoire de son règne.</p>
+          <span class="perso-tag">📝 Tragédie</span>
+          <span class="perso-tag">🏛️ Antiquité</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">🦊</div>
+          <div class="perso-name">La Fontaine</div>
+          <div class="perso-role">Poète et fabuliste</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1621 – 1695</div>
+          <p>Célèbre pour ses <strong>Fables</strong> — de courtes histoires avec des animaux qui donnent des leçons de morale. Tu connais sûrement "Le Corbeau et le Renard" ou "La Cigale et la Fourmi" ! Il cache souvent une critique de la société dans ses fables.</p>
+          <span class="perso-tag">📖 Fables</span>
+          <span class="perso-tag">🦁 Animaux</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">🎵</div>
+          <div class="perso-name">Lully</div>
+          <div class="perso-role">Compositeur du roi</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1632 – 1687</div>
+          <p>Musicien favori de Louis XIV, il compose des opéras, des ballets et de la musique pour toutes les fêtes royales. Il travaille souvent avec Molière. Il meurt d'une blessure au pied causée par son propre bâton de chef d'orchestre !</p>
+          <span class="perso-tag">🎵 Opéra</span>
+          <span class="perso-tag">💃 Ballet</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">🌿</div>
+          <div class="perso-name">Le Nôtre</div>
+          <div class="perso-role">Jardinier du roi</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1613 – 1700</div>
+          <p>Le créateur des magnifiques jardins de Versailles ! Ses jardins "à la française" sont géométriques et parfaitement ordonnés — comme le règne du roi. Son style est copié dans toute l'Europe. Louis XIV se promène souvent avec lui.</p>
+          <span class="perso-tag">🌿 Jardins</span>
+          <span class="perso-tag">🏰 Versailles</span>
+        </div>
+      </div>
+
+      <div class="perso-card">
+        <div class="perso-header">
+          <div class="perso-emoji">🙏</div>
+          <div class="perso-name">Bossuet</div>
+          <div class="perso-role">Évêque et précepteur</div>
+        </div>
+        <div class="perso-body">
+          <div class="perso-dates">1627 – 1704</div>
+          <p>Grand religieux et orateur, il est chargé d'éduquer le fils de Louis XIV (le Dauphin). Il défend l'idée que le roi tient son pouvoir directement de Dieu — c'est le "droit divin". Ses sermons et discours sont très célèbres.</p>
+          <span class="perso-tag">✝️ Religion</span>
+          <span class="perso-tag">📖 Droit divin</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- QUIZ -->
+<div id="page-quiz" class="page">
+  <div class="quiz-container">
+    <div class="section-title">🎯 Le Quiz du Roi Soleil !</div>
+    <div id="quiz-intro" class="quiz-intro">
+      <h2>🏆 Prêt(e) pour le défi ?</h2>
+      <p>10 questions sur Louis XIV et son règne. Choisis ton niveau et montre ce que tu sais ! ☀️</p>
+      <div class="diff-btns">
+        <button class="diff-btn easy sel" onclick="selectDiff('easy',this)">🌱 Facile</button>
+        <button class="diff-btn medium" onclick="selectDiff('medium',this)">⚔️ Moyen</button>
+        <button class="diff-btn hard" onclick="selectDiff('hard',this)">🔥 Difficile</button>
+      </div>
+      <button class="start-btn" onclick="startQuiz()">🎮 Commencer !</button>
+    </div>
+
+    <div id="quiz-game">
+      <div class="quiz-progress">
+        <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+        <div class="prog-text" id="prog-text">1/10</div>
+        <div class="score-badge">⭐ <span id="score-disp">0</span></div>
+      </div>
+      <div class="q-card">
+        <div class="q-num" id="q-num">Question 1</div>
+        <div class="q-emoji" id="q-emoji">❓</div>
+        <div class="q-text" id="q-text"></div>
+        <div class="opts-grid" id="opts-grid"></div>
+        <div class="fb-box" id="fb-box"></div>
+        <button class="next-btn" id="next-btn" onclick="nextQ()">➡️ Suite</button>
+      </div>
+    </div>
+
+    <div id="quiz-results">
+      <div class="results-card">
+        <div class="res-emoji" id="res-emoji">🏆</div>
+        <div class="res-title" id="res-title">Bravo !</div>
+        <div class="res-score" id="res-score">10/10</div>
+        <div class="res-stars" id="res-stars">⭐⭐⭐</div>
+        <div class="res-msg" id="res-msg"></div>
+        <div>
+          <button class="retry-btn" onclick="resetQuiz()">🔄 Rejouer</button>
+          <button class="home2-btn" onclick="showPage('cours')">📖 Revoir le cours</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="confetti-c" id="confetti-c"></div>
+<footer>☀️ Le Roi Soleil — CM1 / CM2 · Vive la France et vive l'Histoire ! 👑</footer>
+
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  const pages=['home','cours','perso','quiz'];
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',pages[i]===id));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleCh(id){document.getElementById(id).classList.toggle('open');}
+
+// ====== QUESTIONS ======
+// Règle : options courtes et équilibrées, pas de réponse trop longue
+const allQ = {
+  easy:[
+    {e:"☀️",q:"Quel est le surnom de Louis XIV ?",o:["Le Roi Tonnerre","Le Roi Soleil","Le Roi Lune","Le Roi Étoile"],a:1,fc:"✅ Bravo ! Louis XIV a choisi le soleil comme symbole — d'où son surnom.",fw:"❌ Son surnom est 'Le Roi Soleil' !"},
+    {e:"👶",q:"En quelle année Louis XIV est-il né ?",o:["1598","1620","1638","1650"],a:2,fc:"✅ Exact ! Louis XIV naît le 5 septembre 1638.",fw:"❌ Louis XIV est né en 1638 !"},
+    {e:"🏰",q:"Quel est le célèbre château de Louis XIV ?",o:["Le Louvre","Chambord","Fontainebleau","Versailles"],a:3,fc:"✅ Oui ! Versailles est le palais symbole du Roi Soleil.",fw:"❌ C'est Versailles ! Louis XIV y installe toute sa cour en 1682."},
+    {e:"👑",q:"Quel âge avait Louis XIV quand il devient roi ?",o:["2 ans","5 ans","10 ans","15 ans"],a:1,fc:"✅ Oui ! Louis XIV devient roi à seulement 5 ans en 1643.",fw:"❌ Louis XIV devient roi à 5 ans, en 1643 !"},
+    {e:"🎭",q:"Qui écrit des comédies pour Louis XIV ?",o:["Racine","Lully","Molière","Vauban"],a:2,fc:"✅ C'est Molière ! Il est le grand auteur comique du règne.",fw:"❌ C'est Molière qui écrit les comédies !"},
+    {e:"🌿",q:"Qui crée les jardins de Versailles ?",o:["Colbert","Le Nôtre","Vauban","Lully"],a:1,fc:"✅ Exact ! André Le Nôtre dessine les célèbres jardins géométriques.",fw:"❌ C'est Le Nôtre qui crée les jardins de Versailles !"},
+    {e:"💰",q:"Quel ministre gère les finances de Louis XIV ?",o:["Vauban","Mazarin","Colbert","Bossuet"],a:2,fc:"✅ Bravo ! Colbert est le grand ministre des finances de Louis XIV.",fw:"❌ C'est Colbert qui gère les finances du royaume !"},
+    {e:"🦊",q:"La Fontaine est célèbre pour ses... ?",o:["Opéras","Fables","Tragédies","Jardins"],a:1,fc:"✅ Exact ! Les Fables de La Fontaine sont toujours célèbres aujourd'hui.",fw:"❌ La Fontaine écrit des Fables, comme 'Le Corbeau et le Renard' !"},
+    {e:"🛡️",q:"Que construit Vauban pour protéger la France ?",o:["Des palais","Des jardins","Des forteresses","Des ports"],a:2,fc:"✅ Oui ! Vauban construit plus de 300 forteresses aux frontières.",fw:"❌ Vauban construit des forteresses pour défendre les frontières !"},
+    {e:"📅",q:"En quelle année Louis XIV meurt-il ?",o:["1683","1700","1715","1789"],a:2,fc:"✅ Exact ! Louis XIV meurt en 1715 après 72 ans de règne.",fw:"❌ Louis XIV meurt en 1715 !"}
+  ],
+  medium:[
+    {e:"✊",q:"En quelle année Louis XIV commence-t-il à gouverner seul ?",o:["1643","1653","1661","1682"],a:2,fc:"✅ Oui ! En 1661, après la mort de Mazarin, Louis XIV décide de gouverner seul.",fw:"❌ C'est en 1661 qu'il prend seul le pouvoir !"},
+    {e:"😱",q:"Comment s'appelle la révolte des nobles quand Louis XIV était enfant ?",o:["La Révolution","La Fronde","La Croisade","La Jacquerie"],a:1,fc:"✅ Bravo ! La Fronde (1648-1653) marqua profondément le jeune Louis XIV.",fw:"❌ C'est la Fronde ! Cette révolte a traumatisé le jeune Louis."},
+    {e:"📜",q:"Quel édit Louis XIV annule-t-il en 1685 ?",o:["Édit de Nantes","Édit de Versailles","Édit de Paris","Édit de Lyon"],a:0,fc:"✅ Exact ! En annulant l'Édit de Nantes, il chasse les protestants de France.",fw:"❌ Il annule l'Édit de Nantes, signé en 1598 par Henri IV !"},
+    {e:"🪞",q:"Comment s'appelle la grande galerie du château de Versailles ?",o:["Galerie Royale","Galerie des Glaces","Galerie du Soleil","Grande Galerie"],a:1,fc:"✅ Oui ! La Galerie des Glaces avec ses 357 miroirs est la plus célèbre du monde.",fw:"❌ C'est la Galerie des Glaces, avec ses 357 miroirs !"},
+    {e:"🎵",q:"Quel compositeur travaille avec Molière pour le roi ?",o:["Bach","Lully","Mozart","Vivaldi"],a:1,fc:"✅ Exact ! Lully compose la musique de nombreuses pièces de Molière.",fw:"❌ C'est Lully, le compositeur favori de Louis XIV !"},
+    {e:"⚔️",q:"Comment s'appelle la dernière grande guerre de Louis XIV ?",o:["Guerre de Cent Ans","Guerre des étoiles","Guerre de Succession d'Espagne","Guerre de Trente Ans"],a:2,fc:"✅ Oui ! Cette guerre (1701-1714) épuise la France mais Philippe garde l'Espagne.",fw:"❌ C'est la Guerre de Succession d'Espagne (1701-1714) !"},
+    {e:"✝️",q:"Selon Bossuet, de qui le roi tient-il son pouvoir ?",o:["Du peuple","Des nobles","De Dieu","Du pape"],a:2,fc:"✅ Exact ! Bossuet défend le 'droit divin' : le roi est choisi par Dieu.",fw:"❌ Selon Bossuet, le roi tient son pouvoir de Dieu — c'est le 'droit divin' !"},
+    {e:"🏰",q:"En quelle année Louis XIV s'installe-t-il à Versailles ?",o:["1661","1670","1682","1700"],a:2,fc:"✅ Bravo ! En 1682, toute la cour s'installe définitivement à Versailles.",fw:"❌ Louis XIV s'installe à Versailles en 1682 !"},
+    {e:"📝",q:"Racine écrit plutôt des... ?",o:["Fables","Comédies","Opéras","Tragédies"],a:3,fc:"✅ Exact ! Phèdre, Andromaque... Racine est le maître de la tragédie.",fw:"❌ Racine écrit des tragédies, pas des comédies comme Molière !"},
+    {e:"😴",q:"Pourquoi Louis XIV invite les nobles à vivre à Versailles ?",o:["Pour les récompenser","Pour les surveiller","Pour les former","Pour s'amuser"],a:1,fc:"✅ Exact ! Les nobles occupés à la vie de cour n'ont pas le temps de comploter !",fw:"❌ Il les surveille ! Occupés par les cérémonies, ils ne peuvent plus se révolter."}
+  ],
+  hard:[
+    {e:"📜",q:"Quel édit Henri IV avait signé pour protéger les protestants ?",o:["Édit de Nantes","Édit de Fontainebleau","Édit de Paris","Édit d'Amboise"],a:0,fc:"✅ Bravo ! L'Édit de Nantes (1598) donnait des droits aux protestants.",fw:"❌ C'est l'Édit de Nantes, signé par Henri IV en 1598 !"},
+    {e:"⚔️",q:"Par quel traité se termine la Guerre de Succession d'Espagne ?",o:["Traité de Paris","Traité de Versailles","Traité d'Utrecht","Traité de Madrid"],a:2,fc:"✅ Exact ! Le traité d'Utrecht (1714) met fin à cette longue guerre.",fw:"❌ C'est le traité d'Utrecht, en 1714 !"},
+    {e:"🎭",q:"Comment s'appelle la pièce de Molière sur un avare ?",o:["Tartuffe","Le Misanthrope","L'Avare","Le Malade imaginaire"],a:2,fc:"✅ Oui ! 'L'Avare' est une des grandes comédies de Molière.",fw:"❌ C'est 'L'Avare' ! Harpagon est le personnage principal."},
+    {e:"🛡️",q:"Combien de forteresses Vauban construit ou améliore-t-il ?",o:["Plus de 50","Plus de 100","Plus de 200","Plus de 300"],a:3,fc:"✅ Impressionnant ! Vauban travaille sur plus de 300 places fortes.",fw:"❌ Vauban construit ou améliore plus de 300 forteresses !"},
+    {e:"💀",q:"Comment Lully meurt-il ?",o:["En duel","D'une blessure à son bâton de chef","De la peste","En mer"],a:1,fc:"✅ Oui ! Il se blesse le pied avec son bâton en frappant le sol pour marquer le tempo.",fw:"❌ Il se blesse le pied avec son propre bâton de chef d'orchestre !"},
+    {e:"🌿",q:"Quelle est la particularité des jardins 'à la française' de Le Nôtre ?",o:["Ils sont très sauvages","Ils sont géométriques et ordonnés","Ils sont remplis de fleurs","Ils sont souterrains"],a:1,fc:"✅ Exact ! Les jardins à la française sont symétriques et parfaitement ordonnés.",fw:"❌ Les jardins à la française sont géométriques et très ordonnés, comme le règne du roi !"},
+    {e:"📚",q:"Quelle institution Louis XIV crée-t-il pour la langue française ?",o:["L'université de Paris","L'Académie française","Le Collège de France","La Bibliothèque royale"],a:1,fc:"✅ Oui ! L'Académie française (créée par Richelieu mais développée sous Louis XIV) protège la langue.",fw:"❌ C'est l'Académie française qui veille sur la langue !"},
+    {e:"👑",q:"Quelle phrase résume le pouvoir absolu de Louis XIV ?",o:["Vive la République !","Liberté, Égalité, Fraternité","L'État, c'est moi !","Un roi, une loi, une foi"],a:2,fc:"✅ Exact ! 'L'État, c'est moi !' est la phrase emblématique du pouvoir absolu.",fw:"❌ La phrase est 'L'État, c'est moi !' — attribuée à Louis XIV."},
+    {e:"⛪",q:"Quelle religion Louis XIV interdit-il en 1685 ?",o:["Le judaïsme","L'islam","Le protestantisme","Le catholicisme"],a:2,fc:"✅ Bravo ! L'Édit de Fontainebleau (1685) interdit la pratique du protestantisme.",fw:"❌ C'est le protestantisme qu'il interdit en 1685 avec l'Édit de Fontainebleau !"},
+    {e:"📅",q:"Combien d'années dure le règne de Louis XIV ?",o:["52 ans","62 ans","72 ans","82 ans"],a:2,fc:"✅ Exact ! 72 ans de règne — le plus long de l'histoire de France !",fw:"❌ Louis XIV règne pendant 72 ans, de 1643 à 1715 — un record !"}
+  ]
+};
+
+let diff='easy', questions=[], curQ=0, score=0;
+function selectDiff(d,btn){diff=d;document.querySelectorAll('.diff-btn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');}
+function shuffle(a){return a.slice().sort(()=>Math.random()-0.5);}
+function startQuiz(){
+  questions=shuffle(allQ[diff]).slice(0,10);curQ=0;score=0;
+  document.getElementById('quiz-intro').style.display='none';
+  document.getElementById('quiz-results').style.display='none';
+  document.getElementById('quiz-game').style.display='block';
+  document.getElementById('score-disp').textContent='0';
+  renderQ();
+}
+function renderQ(){
+  const q=questions[curQ],total=questions.length;
+  document.getElementById('q-num').textContent='Question '+(curQ+1);
+  document.getElementById('q-emoji').textContent=q.e;
+  document.getElementById('q-text').textContent=q.q;
+  document.getElementById('prog-text').textContent=(curQ+1)+'/'+total;
+  document.getElementById('prog-fill').style.width=(curQ/total*100)+'%';
+  const L=['A','B','C','D'],grid=document.getElementById('opts-grid');
+  grid.innerHTML='';
+  q.o.forEach((opt,i)=>{
+    const btn=document.createElement('button');
+    btn.className='opt-btn';
+    btn.innerHTML='<span class="opt-letter">'+L[i]+'</span>'+opt;
+    btn.onclick=()=>answer(i);
+    grid.appendChild(btn);
+  });
+  document.getElementById('fb-box').style.display='none';
+  document.getElementById('next-btn').style.display='none';
+}
+function answer(idx){
+  const q=questions[curQ],btns=document.querySelectorAll('.opt-btn');
+  btns.forEach(b=>b.disabled=true);
+  const fb=document.getElementById('fb-box'),nb=document.getElementById('next-btn');
+  if(idx===q.a){score++;document.getElementById('score-disp').textContent=score;btns[idx].classList.add('correct');fb.className='fb-box fb-ok';fb.innerHTML=q.fc;sound('ok');}
+  else{btns[idx].classList.add('wrong');btns[q.a].classList.add('correct');fb.className='fb-box fb-ko';fb.innerHTML=q.fw;sound('ko');}
+  fb.style.display='block';nb.style.display='block';
+  nb.textContent=curQ+1<questions.length?'➡️ Suite':'🏆 Résultats !';
+}
+function nextQ(){curQ++;if(curQ<questions.length)renderQ();else showResults();}
+function showResults(){
+  document.getElementById('quiz-game').style.display='none';
+  document.getElementById('quiz-results').style.display='block';
+  const p=score/questions.length;
+  let e,t,m,s;
+  if(p>=0.9){e='🏆';t='Digne de Versailles !';s='⭐⭐⭐';m="Louis XIV lui-même serait impressionné ! Tu connais son règne sur le bout des doigts ! ☀️";confetti();}
+  else if(p>=0.7){e='🥇';t='Très bien !';s='⭐⭐';m="Belle performance ! Encore un peu de révision et tu seras au niveau du Roi Soleil !";}
+  else if(p>=0.5){e='👍';t='Pas mal !';s='⭐';m="Tu es sur la bonne voie ! Relis le cours et retente le quiz !";}
+  else{e='📖';t="Continue d'apprendre !";s='';m="Va revoir le cours et les personnages, puis reviens ! Tu vas y arriver ! 💪";}
+  document.getElementById('res-emoji').textContent=e;
+  document.getElementById('res-title').textContent=t;
+  document.getElementById('res-score').textContent=score+'/'+questions.length;
+  document.getElementById('res-stars').textContent=s;
+  document.getElementById('res-msg').textContent=m;
+}
+function resetQuiz(){document.getElementById('quiz-results').style.display='none';document.getElementById('quiz-intro').style.display='block';}
+function confetti(){
+  const c=document.getElementById('confetti-c');c.innerHTML='';
+  const cols=['#f0c040','#8b0000','#1a3a6b','#1e6b3a','#5a1a7a','#e07820'];
+  for(let i=0;i<80;i++){const p=document.createElement('div');p.className='conf';p.style.left=Math.random()*100+'vw';p.style.background=cols[Math.floor(Math.random()*cols.length)];p.style.animationDuration=(1.5+Math.random()*2)+'s';p.style.animationDelay=Math.random()*1.5+'s';c.appendChild(p);}
+  setTimeout(()=>c.innerHTML='',5000);
+}
+function sound(t){
+  try{const ctx=new(window.AudioContext||window.webkitAudioContext)(),o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);
+  if(t==='ok'){o.frequency.setValueAtTime(523,ctx.currentTime);o.frequency.setValueAtTime(659,ctx.currentTime+0.1);o.frequency.setValueAtTime(784,ctx.currentTime+0.2);g.gain.setValueAtTime(0.2,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.5);o.start();o.stop(ctx.currentTime+0.5);}
+  else{o.frequency.setValueAtTime(300,ctx.currentTime);o.frequency.setValueAtTime(200,ctx.currentTime+0.1);g.gain.setValueAtTime(0.2,ctx.currentTime);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+0.3);o.start();o.stop(ctx.currentTime+0.3);}
+  }catch(e){}}
+</script>
+</body>
+</html>
